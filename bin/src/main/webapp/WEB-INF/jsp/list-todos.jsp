@@ -14,10 +14,8 @@
    <table class="table table-striped">
     <thead>
      <tr>
-      <th width="30%">Descripción</th>
-      <th width="30%">Fecha objetivo</th>
-      <th width="10%">Horas estimadas</th>
-      <th width="10%">Prioridad</th>
+      <th width="40%">Descripción</th>
+      <th width="40%">Fecha objetivo</th>
       <th width="20%"></th>
      </tr>
     </thead>
@@ -27,8 +25,6 @@
        <td>${todo.description}</td>
        <td><fmt:formatDate value="${todo.targetDate}"
          pattern="dd/MM/yyyy" /></td>
-       <td>${todo.horasEstimadas}</td>
-       <td>${todo.prioridad}</td>
        <td><a type="button" class="btn btn-success"
         href="/update-todo?id=${todo.id}">Editar</a>
        <a type="button" class="btn btn-warning"

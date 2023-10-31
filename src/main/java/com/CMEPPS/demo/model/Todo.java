@@ -19,16 +19,20 @@ public class Todo {
     private String userName;
     private String description;
     private Date targetDate;
+    private int horasEstimadas;
+    private int prioridad;
 
     public Todo() {
         super();
     }
 
-    public Todo(String user, String desc, Date targetDate, boolean isDone) {
+    public Todo(String user, String desc, Date targetDate, int horasEstimadas, int prioridad, boolean isDone) {
         super();
         this.userName = user;
         this.description = desc;
         this.targetDate = targetDate;
+        this.horasEstimadas = horasEstimadas;
+        this.prioridad = prioridad;
     }
 
     public long getId() {
@@ -62,4 +66,20 @@ public class Todo {
     public void setTargetDate(Date targetDate) {
         this.targetDate = targetDate;
     }
+
+	public int getHorasEstimadas() {
+		return horasEstimadas;
+	}
+
+	public void setHorasEstimadas(int horasEstimadas) {
+		this.horasEstimadas = horasEstimadas;
+	}
+
+	public int getPrioridad() {
+		return prioridad;
+	}
+
+	public void setPrioridad(int prioridad) {
+		this.prioridad = prioridad;
+	}
 }    
