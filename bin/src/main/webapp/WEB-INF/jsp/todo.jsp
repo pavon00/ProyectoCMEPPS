@@ -21,6 +21,20 @@
         required="required" />
        <form:errors path="targetDate" cssClass="text-warning" />
       </fieldset>
+      
+      <fieldset class="form-group">
+       <form:label path="horasEstimadas">Horas Estimadas</form:label>
+       <form:input path="horasEstimadas" type="text" class="form-control"
+        required="required" />
+       <form:errors path="horasEstimadas" cssClass="text-warning" />
+      </fieldset>
+      
+      <fieldset class="form-group">
+       <form:label path="prioridad">Prioridad</form:label>
+       <form:input path="prioridad" type="text" class="form-control"
+        required="required" />
+       <form:errors path="prioridad" cssClass="text-warning" />
+      </fieldset>
 
       <button type="submit" class="btn btn-success">Guardar</button>
      </form:form>
