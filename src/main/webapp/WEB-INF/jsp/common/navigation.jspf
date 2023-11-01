@@ -8,6 +8,7 @@
           <li><a href="/list-todos">Tareas</a></li>
           <li><a href="/list-todos-pendientes">Tareas Pendientes</a></li>
           <li><a href="/proximaSemana">Proxima Semana</a></li>
+          <li><a href="/list-horarios">Editar Horario Proxima Semana</a></li>
      </ul>
      <ul class="nav navbar-nav navbar-right">
          <li><a href="/logout">Cerrar sesión</a></li>

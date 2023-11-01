@@ -1,5 +1,6 @@
 package com.CMEPPS.demo.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -10,23 +11,33 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "horarios")
-public class Horario {
-	
+public class Horario implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 	private String userName;
 	private LocalDate fecha;
 	private boolean disponible;
 	private int horas;
-	
+
 	public Horario() {
-        super();
+		super();
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Fecha: " + fecha + ", disponible: " + true + ", horas: " + horas;
 	}
 
 	public Horario(String userName, LocalDate fecha, boolean disponible, int horas, boolean isDone) {
 		// TODO Auto-generated constructor stub
-        super();
+		super();
 		this.userName = userName;
 		this.fecha = fecha;
 		this.horas = horas;
@@ -49,6 +60,14 @@ public class Horario {
 		this.disponible = disponible;
 	}
 
+	public void cambiarDisponibilidad() {
+		if (this.disponible) {
+			this.disponible = false;
+		} else {
+			this.disponible = true;
+		}
+	}
+
 	public int getHoras() {
 		return horas;
 	}
@@ -65,12 +84,12 @@ public class Horario {
 		this.userName = userName;
 	}
 
-    public long getId() {
-        return id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
 }

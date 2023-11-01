@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import com.CMEPPS.demo.model.Horario;
 import com.CMEPPS.demo.model.Reparto;
@@ -19,6 +20,7 @@ public class ProximaSemana {
 	private List<Horario> horarios;
 	private List<Todo> todos;
 	private List<Todo> todosUsuario;
+
 	public List<Todo> getTodosUsuario() {
 		return todosUsuario;
 	}
@@ -38,7 +40,7 @@ public class ProximaSemana {
 		this.reparto = new ArrayList<Reparto>();
 		this.horarios = getHorariosProximaSemana();
 	}
-	
+
 	private ArrayList<Horario> getHorariosProximaSemana() {
 		LocalDate[] fechas = obtenerFechasProximaSemana();
 		ArrayList<Horario> horariosAux = new ArrayList<Horario>();
@@ -48,7 +50,7 @@ public class ProximaSemana {
 		}
 		return horariosAux;
 	}
-	
+
 	public String getStringFechaHorarioEstado(LocalDate fecha) {
 		int horasContador = 0;
 		int horas = 0;
@@ -111,6 +113,7 @@ public class ProximaSemana {
 		}
 		return aux;
 	}
+
 	private void addReparto() {
 		reparto = new ArrayList<Reparto>();
 		int contador = 0;
@@ -119,7 +122,8 @@ public class ProximaSemana {
 			if (this.horarios.get(i).isDisponible()) {
 				int horasDisponibles = this.horarios.get(i).getHoras() - horasDiasRepartidos(i);
 				if (horasDisponibles >= horasContador) {
-					Reparto r = new Reparto(this.userName, this.horarios.get(i).getFecha(), horasContador, todos.get(contador).getId(), true);
+					Reparto r = new Reparto(this.userName, this.horarios.get(i).getFecha(), horasContador,
+							todos.get(contador).getId(), true);
 					reparto.add(r);
 					if (contador == todos.size() - 1) {
 						return;
@@ -129,7 +133,8 @@ public class ProximaSemana {
 					i--;
 				} else {
 					if (horasDisponibles != 0) {
-						Reparto r = new Reparto(this.userName, this.horarios.get(i).getFecha(), horasDisponibles, todos.get(contador).getId(), true);
+						Reparto r = new Reparto(this.userName, this.horarios.get(i).getFecha(), horasDisponibles,
+								todos.get(contador).getId(), true);
 						reparto.add(r);
 						horasContador = horasContador - horasDisponibles;
 					}
@@ -147,7 +152,6 @@ public class ProximaSemana {
 		}
 		return aux;
 	}
-
 
 	public boolean addTodo(Todo todo) {
 		if (!todo.getUserName().equals(this.userName)) {
@@ -176,12 +180,12 @@ public class ProximaSemana {
 	}
 
 	private void deleteReparto(Todo todo) {
-		while (indexRepartoTodo(todo)!=-1) {
+		while (indexRepartoTodo(todo) != -1) {
 			int i = indexRepartoTodo(todo);
 			reparto.remove(i);
 		}
 	}
-	
+
 	private int indexRepartoTodo(Todo todo) {
 		for (int i = 0; i < reparto.size(); i++) {
 			if (obtenerTododeReparto(i) == null) {
@@ -193,13 +197,13 @@ public class ProximaSemana {
 		}
 		return -1;
 	}
-	
+
 	private Todo obtenerTododeReparto(int index) {
 		if (reparto.get(index).getTodo() != null) {
 			return reparto.get(index).getTodo();
 		}
 		for (Todo todo : todos) {
-			if (reparto.get(index).getIdTodo()==todo.getId()) {
+			if (reparto.get(index).getIdTodo() == todo.getId()) {
 				reparto.get(index).setTodo(todo);
 				return todo;
 			}
@@ -315,6 +319,10 @@ public class ProximaSemana {
 	}
 
 	public void setHorarios(List<Horario> horarios) {
+		List<Horario> aux = getHorariosProximaSemana();
+		for (Horario h : aux) {
+			h.setId(generarNumeroAleatorio());
+		}
 		this.horarios = getHorariosProximaSemana();
 		for (Horario h : horarios) {
 			for (Horario horario : this.horarios) {
@@ -324,6 +332,21 @@ public class ProximaSemana {
 				}
 			}
 		}
+	}
+
+	public Horario getHorario(String dateString) {
+		for (Horario horario : horarios) {
+			if (dateString.equals(horario.getFecha().toString())) {
+				return horario;
+			}
+		}
+		return null;
+	}
+
+	private static long generarNumeroAleatorio() {
+		Random rand = new Random();
+		long numeroAleatorio = rand.nextLong() % 1000001;
+		return Math.abs(numeroAleatorio); // Para asegurarse de que sea positivo
 	}
 
 }
