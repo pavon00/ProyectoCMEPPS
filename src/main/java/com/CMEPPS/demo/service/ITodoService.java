@@ -10,6 +10,8 @@ import com.CMEPPS.demo.model.Todo;
 public interface ITodoService {
 
 	List<Todo> getTodosByUser(String user);
+	
+	List<Todo> getTodosPendientesByUser(String user);
 
 	Optional<Todo> getTodoById(long id);
 

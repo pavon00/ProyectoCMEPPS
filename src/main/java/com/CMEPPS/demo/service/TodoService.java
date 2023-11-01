@@ -1,6 +1,7 @@
 
 package com.CMEPPS.demo.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,17 @@ public class TodoService implements ITodoService {
     @Override
     public List < Todo > getTodosByUser(String user) {
         return todoRepository.findByUserName(user);
+    }
+    
+    @Override
+    public List < Todo > getTodosPendientesByUser(String user) {
+    	ArrayList<Todo> listaAux = new ArrayList<Todo>();
+    	for (Todo t : todoRepository.findByUserName(user)) {
+    		if (t.esPendiente()) {
+    			listaAux.add(t);
+			}
+		}
+        return listaAux;
     }
 
     @Override

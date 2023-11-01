@@ -82,4 +82,10 @@ public class Todo {
 	public void setPrioridad(int prioridad) {
 		this.prioridad = prioridad;
 	}
+	
+	//devuelve true si esta clase tiene el atributo targetDate mayor a la fecha actual 
+	public boolean esPendiente() {
+        Date fechaActual = new Date();
+        return this.targetDate.after(fechaActual);
+    }
 }    

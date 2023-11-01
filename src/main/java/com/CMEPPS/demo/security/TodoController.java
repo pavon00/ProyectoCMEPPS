@@ -41,6 +41,14 @@ public class TodoController {
         return "list-todos";
     }
 
+    @RequestMapping(value = "/list-todos-pendientes", method = RequestMethod.GET)
+    public String showTodosPendientes(ModelMap model) {
+        String name = getLoggedInUserName(model);
+        model.put("todos", todoService.getTodosPendientesByUser(name));
+        // model.put("todos", service.retrieveTodos(name));
+        return "list-todos";
+    }
+
     private String getLoggedInUserName(ModelMap model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
