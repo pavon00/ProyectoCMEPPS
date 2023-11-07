@@ -29,6 +29,12 @@ public class Reparto implements Comparable<Reparto>{
 	public Reparto() {
         super();
     }
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "fecha: "+fecha+", horas: "+horas+", idTodo: "+idTodo;
+	}
 
 	public Reparto(String userName, LocalDate fecha, int horas, long idTodo, boolean isDone) {
 		// TODO Auto-generated constructor stub

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import com.CMEPPS.demo.model.Horario;
 import com.CMEPPS.demo.model.Reparto;
@@ -98,7 +97,7 @@ public class ProximaSemana {
 		aux = aux + "\n";
 
 		for (Horario h : horarios) {
-			aux = aux + getStringFechaHorarioEstado(h.getFecha()) + "\t\t\t\t";
+			aux = aux + getStringFechaHorarioEstado(h.getFecha()) + "\t\t\t";
 		}
 
 		aux = aux + "\n\n----------\n\nTareas:\n ";
@@ -117,6 +116,9 @@ public class ProximaSemana {
 	private void addReparto() {
 		reparto = new ArrayList<Reparto>();
 		int contador = 0;
+		if (todos.size() == 0) {
+			return;
+		}
 		int horasContador = todos.get(contador).getHorasEstimadas();
 		for (int i = 0; i < this.horarios.size(); i++) {
 			if (this.horarios.get(i).isDisponible()) {
@@ -309,20 +311,50 @@ public class ProximaSemana {
 			}
 		}
 		this.reparto = reparto;
-		while (!comprobarValidez()) {
-			eliminarUltimoTodo();
-		}
 	}
 
 	public List<Horario> getHorarios() {
 		return horarios;
 	}
 
-	public void setHorarios(List<Horario> horarios) {
-		List<Horario> aux = getHorariosProximaSemana();
-		for (Horario h : aux) {
-			h.setId(generarNumeroAleatorio());
+	public Horario getHorario(String fechaString) {
+		for (Horario horario : horarios) {
+			if (horario.getFecha().toString().equals(fechaString)) {
+				return horario;
+			}
 		}
+		return null;
+	}
+
+	public List<Reparto> getProximaSemanaReparto() {
+		return this.reparto;
+	}
+
+	public List<String> getProximaSemanaHorasString() {
+		ArrayList<String> aux = new ArrayList<String>();
+		for (Horario h : horarios) {
+			aux.add(String.valueOf(h.getHoras()));
+		}
+		return aux;
+	}
+
+	public List<String> getProximaSemanaFechasString() {
+		ArrayList<String> aux = new ArrayList<String>();
+		for (Horario h : horarios) {
+			aux.add(String.valueOf(h.getFecha().toString()));
+		}
+		return aux;
+	}
+
+	public List<String> getProximaSemanaEstatusString() {
+		ArrayList<String> aux = new ArrayList<String>();
+		for (Horario h : horarios) {
+			aux.add(getStringFechaHorarioEstado(h.getFecha()));
+		}
+		return aux;
+	}
+
+	public void setHorarios(List<Horario> horarios) {
 		this.horarios = getHorariosProximaSemana();
 		for (Horario h : horarios) {
 			for (Horario horario : this.horarios) {
@@ -332,21 +364,6 @@ public class ProximaSemana {
 				}
 			}
 		}
-	}
-
-	public Horario getHorario(String dateString) {
-		for (Horario horario : horarios) {
-			if (dateString.equals(horario.getFecha().toString())) {
-				return horario;
-			}
-		}
-		return null;
-	}
-
-	private static long generarNumeroAleatorio() {
-		Random rand = new Random();
-		long numeroAleatorio = rand.nextLong() % 1000001;
-		return Math.abs(numeroAleatorio); // Para asegurarse de que sea positivo
 	}
 
 }
